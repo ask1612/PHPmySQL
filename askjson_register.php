@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * askjson_register.php
  * @author ASK
  * Here will be  created a new user record
