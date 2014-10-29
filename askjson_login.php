@@ -33,10 +33,18 @@ if(empty($username)||empty($userpwd)){//User name  or pssword is empty.
             $response[TAG_MESSAGE] = 'User account  ' .$username. ' is not found!';
             die(json_encode($response));    
         }
-    else{ //A user with this name already exists in the database. 
-        $response[TAG_SUCCESS]= 1;
-        $response[TAG_MESSAGE] = '$username' ;
-        die(json_encode($response));
+    else{ //A user with this name  exists in the database.
+          //Check out the password
+        if($result==$userpwd){
+            $response[TAG_SUCCESS]= 1;
+            $response[TAG_MESSAGE] = "Pasword ".$result." == ".$userpwd."  true";
+            die(json_encode($response));
+            }
+        else{
+            $response[TAG_SUCCESS]= 0;
+            $response[TAG_MESSAGE] = "Pasword ".$result." != ".$userpwd."  false" ;
+            die(json_encode($response));
+            }     
         }    
     }
  //Parameter JSON_UNESCAPED_UNICODE is required to display cyrillic text

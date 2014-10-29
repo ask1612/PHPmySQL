@@ -54,7 +54,7 @@ class DB_Connect{
                 $result="";
                 if($stmt){
                     while ($row =$stmt->fetch(PDO::FETCH_ASSOC)) {
-                        $result=$row[TAG_NAME];
+                        $result=$row[TAG_PWD];
                         }
                    }
                 return $result;
