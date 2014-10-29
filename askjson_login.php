@@ -30,7 +30,7 @@ if(empty($username)||empty($userpwd)){//User name  or pssword is empty.
     $result = $db->selectUser($username);//Search user.  
     if(empty($result)){//User  is not found in MySql database.
             $response[TAG_SUCCESS]= 0;
-            $response[TAG_MESSAGE] = 'User account  ' .$username. ' is not found!';
+            $response[TAG_MESSAGE] = ' User account  ' .$username. ' is not found!';
             die(json_encode($response));    
         }
     else{ //A user with this name  exists in the database.
