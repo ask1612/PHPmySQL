@@ -45,7 +45,7 @@ class DB_Connect{
              return $this->con;
             }
     /**
-    * Function to get user name from  MySql database
+    * Function to get user password  from  MySql database
     */        
     public function selectUser($username){
             try{
