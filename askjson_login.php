@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 
+ * I do not sleep tonight... I may not ever...
  * askjson_login.php
  * @author ASK
  * User login

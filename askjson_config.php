@@ -1,6 +1,6 @@
 <?php   
 /**
- * 
+ * I do not sleep tonight... I may not ever...
  * askjson_config.php
  * @author ASK
  * 

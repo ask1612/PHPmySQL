@@ -1,6 +1,6 @@
 <?php
 /**
- * 
+ * I do not sleep tonight... I may not ever...
  * askjson_connect.php
  * @author ASK
  * On the trail of Peter Leow
