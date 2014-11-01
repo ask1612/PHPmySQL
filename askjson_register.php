@@ -7,16 +7,9 @@
  * Here will be  created a new user record
  */
 
-require_once __DIR__.'/askjson_config.php';
-//Get JSON object
-$jsonString = filter_input(INPUT_POST,TAG_JSON);
-$jsonArr=json_decode($jsonString,true);
-//Feth user name and password 
-$username =trim($jsonArr[TAG_NAME]);//User name
-$userpwd=trim($jsonArr[TAG_PWD]);//Password
  
 
-/* Check user name and password.*/
+/* Check out  user name and password.*/
 if(empty($username)||empty($userpwd)){//User name  or pssword is empty.
     $response[TAG_SUCCESS] = 0;
     $response[TAG_MESSAGE] = "Username and Password must not be empty";
