@@ -16,6 +16,6 @@
     define('TAG_NAME','name');
     define('TAG_PWD','password');
     define('TAG_BTN','button');
-    define('TAG_LOG','login');
-    define('TAG_REG','register');
+    define('BTN_LOG','login');
+    define('BTN_REG','register');
  

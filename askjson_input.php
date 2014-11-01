@@ -15,11 +15,11 @@ $jsonArr=json_decode($jsonString,true);
 $username =trim($jsonArr[TAG_NAME]);//User name
 $userpwd=trim($jsonArr[TAG_PWD]);//Password
 $button=trim($jsonArr[TAG_BTN]);//Button
-if($button==TAG_LOG){
+if($button==BTN_LOG){
     require_once __DIR__.'/askjson_login.php';
     
 }
-elseif ($button==TAG_REG) {
+elseif ($button==BTN_REG) {
     require_once __DIR__.'/askjson_register.php';
 
 }
