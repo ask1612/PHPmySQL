@@ -84,5 +84,22 @@ class DB_Connect {
             echo 'ERROR: ' . $e->getMessage();
         }
     }
+    /**
+     * Function to insert new person data  into MySql database
+     */
+    public function insertPerson($username, $userpwd) {
+        try {
+            $sql_query = "INSERT INTO user (name, password, role)"
+                    . " VALUES('$username', '$userpwd','2')";
+            $stmt = $this->con->prepare($sql_query);
+            $stmt->execute();
+            if ($stmt) {
+                return true;
+            }
+            return false;
+        } catch (PDOException $e) {
+            echo 'ERROR: ' . $e->getMessage();
+        }
+    }
 
 }
