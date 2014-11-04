@@ -11,7 +11,11 @@ and open the template in the editor.
     </head>
     <body>
         <?php
+        
         // put your code here
+        
+   //     require_once __DIR__ . '/askjson_config.php';
+
         ?>
     </body>
 </html>

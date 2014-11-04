@@ -21,15 +21,16 @@ define('DB_SERVER', "localhost");
 /**
  * common JSON tags
  */
-define('TAG_JSON', 'askJSON');
-define('TAG_BTN', 'button');
+define('TAG_JSON','askJSON');
+define('TAG_BTN','button');
+define('TAG_DATA','data');
 
 /**
  * Data to output  a message and a result of I/O operation.
  * This data  used to create an  JSON object and   pass it to the Android 
  * application as callback.
  */
-ine('TAG_SUCCESS', 'success');
+define('TAG_SUCCESS', 'success');
 define('TAG_MESSAGE', 'message');
 
 /**

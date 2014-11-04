@@ -6,7 +6,10 @@
  * @author ASK
  * Here will be  created a new user record
  */
-/* Check out  user name and password. */
+    //Get user name and password 
+    $username = trim($jsonArr[TAG_NAME]); //User name
+    $userpwd = trim($jsonArr[TAG_PWD]); //Password
+
 if (empty($username) || empty($userpwd)) {//User name  or pssword is empty.
     $response[TAG_SUCCESS] = 0;
     $response[TAG_MESSAGE] = "Username and Password must not be empty";

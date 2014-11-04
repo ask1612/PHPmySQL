@@ -87,7 +87,7 @@ class DB_Connect {
     /**
      * Function to insert new person data  into MySql database
      */
-    public function insertPerson($username, $userpwd) {
+    public function insertPerson($psnrname, $userpwd) {
         try {
             $sql_query = "INSERT INTO user (name, password, role)"
                     . " VALUES('$username', '$userpwd','2')";
