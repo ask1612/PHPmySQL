@@ -28,7 +28,7 @@ if (empty($username) || empty($userpwd)) {//User name  or pssword is empty.
         if ($result == $userpwd) {
             $response[TAG_SUCCESS] = 1;
             $response[TAG_MESSAGE] = "Pasword " . $result . " == " . $userpwd . "  true";
-            die(json_encode($response));
+            echo json_encode($response);
         } else {
             $response[TAG_SUCCESS] = 0;
             $response[TAG_MESSAGE] = "Pasword " . $result . " != " . $userpwd . "  false";

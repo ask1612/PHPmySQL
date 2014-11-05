@@ -7,8 +7,8 @@
  */
 
     //Get user name and password 
-    $name = trim($jsonArr[TAG_DATA][0][TAG_PSNNAME]); //person  name
-    $surname = trim($jsonArr[TAG_DATA][0][TAG_SURNAME]); //person surname
+    $pname =$jsonArr[TAG_DATA][0][TAG_PSNNAME] ; //person  name
+   $psurname = $jsonArr[TAG_DATA][0][TAG_SURNAME]; //person surname
             $response[TAG_SUCCESS] = 1;
-            $response[TAG_MESSAGE] = 'Person name is   ' . $rname . ' is Successfully readed!';
+            $response[TAG_MESSAGE] = 'Hello , '.$pname. ' '.$psurname ;
             die(json_encode($response));

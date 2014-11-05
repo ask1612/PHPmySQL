@@ -24,7 +24,7 @@ if (empty($username) || empty($userpwd)) {//User name  or pssword is empty.
         if ($insert) {
             $response[TAG_SUCCESS] = 1;
             $response[TAG_MESSAGE] = 'User account  ' . $username . ' is Successfully Added!';
-            die(json_encode($response));
+            echo json_encode($response);
         } else {
             $response[TAG_SUCCESS] = 0;
             $response[TAG_MESSAGE] = 'Cannot insert account ' . $username . ' in database.'
