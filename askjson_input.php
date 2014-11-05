@@ -12,7 +12,7 @@ $jsonString = filter_input(INPUT_POST, TAG_JSON);
 $jsonArr =json_decode($jsonString, true);
 
 //
-$button = trim($jsonArr[TAG_BTN]); //clicked button 
+$button = trim($jsonArr[TAG_HEAD][TAG_BTN]); //clicked button 
 if ($button == VAL_BTNLOG) {
     require_once __DIR__ . '/askjson_login.php';
 } elseif ($button == VAL_BTNREG) {

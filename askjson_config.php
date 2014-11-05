@@ -24,6 +24,7 @@ define('DB_SERVER', "localhost");
 define('TAG_JSON','askJSON');
 define('TAG_BTN','button');
 define('TAG_DATA','data');
+define('TAG_HEAD','head');
 
 /**
  * Data to output  a message and a result of I/O operation.

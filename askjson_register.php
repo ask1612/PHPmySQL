@@ -7,8 +7,8 @@
  * Here will be  created a new user record
  */
     //Get user name and password 
-    $username = trim($jsonArr[TAG_NAME]); //User name
-    $userpwd = trim($jsonArr[TAG_PWD]); //Password
+    $username = trim($jsonArr[TAG_DATA][TAG_NAME]); //User name
+    $userpwd = trim($jsonArr[TAG_DATA][TAG_PWD]); //Password
 
 if (empty($username) || empty($userpwd)) {//User name  or pssword is empty.
     $response[TAG_SUCCESS] = 0;
