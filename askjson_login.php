@@ -37,10 +37,10 @@ if (empty($username) || empty($userpwd)) {//User name  or pssword is empty.
     if ($res[0][TAG_PWD] == $userpwd) {
             $response[TAG_SUCCESS] = 1;
             $response[TAG_MESSAGE] = "You have successful login" ;
-            die(json_encode($response));
+            echo json_encode($response);
         } else {
             $response[TAG_SUCCESS] = 0;
-            $response[TAG_MESSAGE] = "Pasword you has enered is wrong ";
+            $response[TAG_MESSAGE] = "Pasword you have entered is wrong ";
             die(json_encode($response));
         }
     }

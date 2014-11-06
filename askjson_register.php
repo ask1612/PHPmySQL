@@ -17,8 +17,8 @@ if (empty($username) || empty($userpwd)) {//User name  or pssword is empty.
 } else {//OK!User name and password is not empty. 
     require_once __DIR__ . '/askjson_connect.php';
     $db = new DB_Connect(); //Connect to databse. 
-    $result = $db->selectUser($username); //Search user.  
-    if (empty($result)) {//User  is not found in MySql database.
+    $res = $db->selectUser($username); //Search user.  
+    if (count($res)==0) {//User  is not found in MySql database.
         //Insert in database new user
         $insert = $db->insertUser($username, $userpwd);
         if ($insert) {
