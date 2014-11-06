@@ -55,11 +55,10 @@ class DB_Connect {
         try {
             $stmt = $this->con->prepare("SELECT * FROM user where name='$username'");
             $stmt->execute();
-            $result = "";
             if ($stmt) {
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                    $result = $row[TAG_PWD];
-                }
+                    $result[] = $row;
+               }
             }
             return $result;
         } catch (PDOException $e) {
