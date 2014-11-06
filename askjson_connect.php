@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * Niemand ist perfekt.
  * I do not sleep tonight... I may not ever...
  * askjson_connect.php
  * @author ASK
@@ -70,12 +71,12 @@ class DB_Connect {
     /**
      * Function to insert new user account into MySql database
      */
-    public function insertUser($username, $userpwd) {
+    public function insertUser($userData) {
         try {
             $sql_query = "INSERT INTO user (name, password, role)"
-                    . " VALUES('$username', '$userpwd','2')";
+                    . " VALUES(:".TAG_NAME.",:".TAG_PWD. ",'2')";
             $stmt = $this->con->prepare($sql_query);
-            $stmt->execute();
+            $stmt->execute($userData);
             if ($stmt) {
                 return true;
             }
@@ -87,12 +88,12 @@ class DB_Connect {
     /**
      * Function to insert new person data  into MySql database
      */
-    public function insertPerson($psnrname, $userpwd) {
+    public function insertPerson($personData) {
         try {
-            $sql_query = "INSERT INTO user (name, password, role)"
-                    . " VALUES('$username', '$userpwd','2')";
+            $sql_query = "INSERT INTO user (name,surname ,city,street,build,flat.user)"
+                    . " VALUES(:".TAG_NAME.",:".TAG_PWD. ",'2')";
             $stmt = $this->con->prepare($sql_query);
-            $stmt->execute();
+            $stmt->execute($personData);
             if ($stmt) {
                 return true;
             }

@@ -1,14 +1,26 @@
 <?php
 
 /**
+ * Niemand ist perfekt.
  * I do not sleep tonight... I may not ever...
  * askjson_register.php
  * @author ASK
  * Here will be  created a new user record
  */
-    //Get user name and password 
-    $username = trim($jsonArr[TAG_DATA][TAG_NAME]); //User name
-    $userpwd = trim($jsonArr[TAG_DATA][TAG_PWD]); //Password
+    //Get user name and password
+    $userData=$jsonArr[TAG_DATA];
+     /**DEBUG
+        $str = var_export($userData, true);
+        $response[TAG_SUCCESS] = 0;
+        $response[TAG_MESSAGE] = $str;
+        die(json_encode($response));
+      * 
+      */
+        
+     
+       
+    $username = trim($userData[TAG_NAME]); //User name
+    $userpwd = trim($userData[TAG_PWD]); //Password
 
 if (empty($username) || empty($userpwd)) {//User name  or pssword is empty.
     $response[TAG_SUCCESS] = 0;
@@ -20,7 +32,7 @@ if (empty($username) || empty($userpwd)) {//User name  or pssword is empty.
     $res = $db->selectUser($username); //Search user.  
     if (count($res)==0) {//User  is not found in MySql database.
         //Insert in database new user
-        $insert = $db->insertUser($username, $userpwd);
+        $insert = $db->insertUser($userData);
         if ($insert) {
             $response[TAG_SUCCESS] = 1;
             $response[TAG_MESSAGE] = 'User account  ' . $username . ' is Successfully Added!';

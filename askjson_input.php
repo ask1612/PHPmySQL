@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * Niemand ist perfekt.
  * I do not sleep tonight... I may not ever...
  * askjson_input.php
  * @author ASK
