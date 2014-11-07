@@ -5,7 +5,8 @@
  * I do not sleep tonight... I may not ever...
  * askjson_login.php
  * @author ASK
- * User login
+  *https://github.com/ask1612/PHPmySQL.git 
+* User login
  * 
  */
 /* Check out  user name and password. */

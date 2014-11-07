@@ -5,6 +5,7 @@
  * I do not sleep tonight... I may not ever...
  * askjson_connect.php
  * @author ASK
+ * https://github.com/ask1612/PHPmySQL.git 
  * On the trail of Peter Leow
  * 
  */
@@ -56,11 +57,11 @@ class DB_Connect {
         try {
             $stmt = $this->con->prepare("SELECT * FROM user where name='$username'");
             $stmt->execute();
-            $result=[];
+            $result = [];
             if ($stmt) {
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     $result[] = $row;
-               }
+                }
             }
             return $result;
         } catch (PDOException $e) {
@@ -71,12 +72,15 @@ class DB_Connect {
     /**
      * Function to insert new user account into MySql database
      */
-    public function insertUser($userData) {
+    public function insertUser($dataUser) {
         try {
             $sql_query = "INSERT INTO user (name, password, role)"
-                    . " VALUES(:".TAG_NAME.",:".TAG_PWD. ",'2')";
+                    . " VALUES("
+                    . ":" . TAG_NAME . ","
+                    . ":" . TAG_PWD . ","
+                    . "'2')";
             $stmt = $this->con->prepare($sql_query);
-            $stmt->execute($userData);
+            $stmt->execute($dataUser);
             if ($stmt) {
                 return true;
             }
@@ -85,19 +89,103 @@ class DB_Connect {
             echo 'ERROR: ' . $e->getMessage();
         }
     }
+
     /**
      * Function to insert new person data  into MySql database
      */
-    public function insertPerson($personData) {
+    public function insertPerson($dataPerson) {
         try {
-            $sql_query = "INSERT INTO user (name,surname ,city,street,build,flat.user)"
-                    . " VALUES(:".TAG_NAME.",:".TAG_PWD. ",'2')";
+            $sql_query = "INSERT INTO person (personname,surname,address ,user)"
+                    . " VALUES("
+                    . ":" . TAG_PSNNAME . ","
+                    . ":" . TAG_SURNAME . ","
+                    . ":" . TAG_ADDRESS . ","
+                    . ":" . TAG_USER
+                    . ")"
+            ;
             $stmt = $this->con->prepare($sql_query);
-            $stmt->execute($personData);
+            $stmt->execute($dataPerson);
             if ($stmt) {
                 return true;
             }
             return false;
+        } catch (PDOException $e) {
+            echo 'ERROR: ' . $e->getMessage();
+        }
+    }
+
+    /**
+     * Function to select from  person 
+     */
+    public function selectPerson($dataPerson) {
+        try {
+            $sql_query = "SELECT * FROM person WHERE "
+                    . "name=:" . TAG_PSNNAME . " AND "
+                    . "surname=:" . TAG_SURNAME . " AND "
+                    . "address=:" . TAG_ADDRESS . " AND "
+                    . "user=:" . TAG_USER
+            ;
+            $stmt = $this->con->prepare($sql_query);
+            $stmt->execute($dataPerson);
+            $result = [];
+            if ($stmt) {
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $result[] = $row;
+                }
+            }
+            return $result;
+        } catch (PDOException $e) {
+            echo 'ERROR: ' . $e->getMessage();
+        }
+    }
+
+    /**
+     * Function to insert new address data  into MySql database
+     */
+    public function insertAddress($dataAddress) {
+        try {
+            $sql_query = "INSERT INTO address (city,street,build,flat,user)"
+                    . " VALUES("
+                    . ":" . TAG_CITY . ","
+                    . ":" . TAG_STREET . ","
+                    . ":" . TAG_BUILD . ","
+                    . ":" . TAG_FLAT . ","
+                    . ":" . TAG_USER .
+                    ")"
+            ;
+            $stmt = $this->con->prepare($sql_query);
+            $stmt->execute($dataAddress);
+            if ($stmt) {
+                return true;
+            }
+            return false;
+        } catch (PDOException $e) {
+            echo 'ERROR: ' . $e->getMessage();
+        }
+    }
+
+    /**
+     * Function to select from  address 
+     */
+    public function selectAddress($dataAddress) {
+        try {
+            $sql_query = "SELECT * FROM address WHERE "
+                    . "city=:" . TAG_CITY . " AND "
+                    . "street=:" . TAG_STREET . " AND "
+                    . "build=:" . TAG_BUILD . " AND "
+                    . "flat=:" . TAG_FLAT . " AND "
+                    . "user=:" . TAG_USER
+
+            ;
+            $stmt = $this->con->prepare($sql_query);
+            $stmt->execute($dataAddress);
+            $result = [];
+            if ($stmt) {
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $result[] = $row;
+                }
+            }
+            return $result;
         } catch (PDOException $e) {
             echo 'ERROR: ' . $e->getMessage();
         }

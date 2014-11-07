@@ -1,16 +1,14 @@
 <?php
 
 /**
+ * 
  * Niemand ist perfekt.
  * I do not sleep tonight... I may not ever...
  * askjson_config.php
  * @author ASK
- * 
+ * https://github.com/ask1612/PHPmySQL.git 
  * 
  */
-
-
-
 /**
  * Data to login to  MySql database
  */
@@ -22,10 +20,14 @@ define('DB_SERVER', "localhost");
 /**
  * common JSON tags
  */
-define('TAG_JSON','askJSON');
-define('TAG_BTN','button');
-define('TAG_DATA','data');
-define('TAG_HEAD','head');
+define('TAG_JSON', 'askJSON');
+define('TAG_DATA', 'data');
+define('TAG_HEAD', 'head');
+define('TAG_ID', 'id');
+define('TAG_BTN', 'button');
+define('VAL_BTNSAVE', 'save');
+define('VAL_BTNLOG', 'login');
+define('VAL_BTNREG', 'register');
 
 /**
  * Data to output  a message and a result of I/O operation.
@@ -36,22 +38,26 @@ define('TAG_SUCCESS', 'success');
 define('TAG_MESSAGE', 'message');
 
 /**
- * Data to input  user information 
+ * Data to input  USER information 
  */
 define('TAG_NAME', 'name');
 define('TAG_PWD', 'password');
-define('VAL_BTNLOG', 'login');
-define('VAL_BTNREG', 'register');
 
 /**
- * Data to input person information
+ * Data to input PERSON information
  */
-define('VAL_BTNSAVE', 'save');
 define('TAG_PSNNAME', 'personname');
 define('TAG_SURNAME', 'surname');
-define('TAG_ADDRESS', 'address');
 define('TAG_CITY', 'city');
 define('TAG_STREET', 'street');
 define('TAG_BUILD', 'build');
 define('TAG_FLAT', 'flat');
+
+
+/**
+ *Database tables 
+ */
+define('TAG_USER', 'user');
+define('TAG_PSN', 'person');
+define('TAG_ADDRESS', 'address');
 

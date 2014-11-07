@@ -5,24 +5,17 @@
  * I do not sleep tonight... I may not ever...
  * askjson_register.php
  * @author ASK
+ * https://github.com/ask1612/PHPmySQL.git 
  * Here will be  created a new user record
  */
-    //Get user name and password
-    $userData=$jsonArr[TAG_DATA];
-     /**DEBUG
-        $str = var_export($userData, true);
-        $response[TAG_SUCCESS] = 0;
-        $response[TAG_MESSAGE] = $str;
-        die(json_encode($response));
-      * 
-      */
-        
-     
-       
-    $username = trim($userData[TAG_NAME]); //User name
-    $userpwd = trim($userData[TAG_PWD]); //Password
 
-if (empty($username) || empty($userpwd)) {//User name  or pssword is empty.
+//Get user name and password
+$dataUser = $jsonArr[TAG_DATA];//it will be used as parameters
+
+$username = trim($dataUser[TAG_NAME]); //user name
+$userpwd = trim($dataUser[TAG_PWD]); //password
+
+if (empty($username) || empty($userpwd)) {//user name  or pssword is empty.
     $response[TAG_SUCCESS] = 0;
     $response[TAG_MESSAGE] = "Username and Password must not be empty";
     die(json_encode($response));
@@ -30,9 +23,9 @@ if (empty($username) || empty($userpwd)) {//User name  or pssword is empty.
     require_once __DIR__ . '/askjson_connect.php';
     $db = new DB_Connect(); //Connect to databse. 
     $res = $db->selectUser($username); //Search user.  
-    if (count($res)==0) {//User  is not found in MySql database.
+    if (count($res) == 0) {//User  is not found in MySql database.
         //Insert in database new user
-        $insert = $db->insertUser($userData);
+        $insert = $db->insertUser($dataUser);
         if ($insert) {
             $response[TAG_SUCCESS] = 1;
             $response[TAG_MESSAGE] = 'User account  ' . $username . ' is Successfully Added!';
@@ -51,6 +44,17 @@ if (empty($username) || empty($userpwd)) {//User name  or pssword is empty.
     }
 }
  //Parameter JSON_UNESCAPED_UNICODE is required to display cyrillic text
+
+
+/* * DEBUG
+  $str = var_export($dataUser, true);
+  $response[TAG_SUCCESS] = 0;
+  $response[TAG_MESSAGE] = $str;
+  die(json_encode($response));
+ * 
+ */
+
+
  
 
 
