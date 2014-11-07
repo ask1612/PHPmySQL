@@ -8,53 +8,44 @@
  * https://github.com/ask1612/PHPmySQL.git 
  * Here will be  created a new user record
  */
-
+require_once __DIR__ . '/askjson_connect.php';
+require_once __DIR__ . '/askjson_message.php';
+$box = new Message();
 //Get user name and password
-$dataUser = $jsonArr[TAG_DATA];//it will be used as parameters
+$dataUser = $jsonArr[TAG_DATA]; // Get data tag . It  will be used as
+//query sql  parameter
 
 $username = trim($dataUser[TAG_NAME]); //user name
-$userpwd = trim($dataUser[TAG_PWD]); //password
-
+$userpwd = (trim($dataUser[TAG_PWD])); //password
+$security = new Security();
+$hash=$security->hashPassword($userpwd);
+$dataUser[TAG_PWD] = $hash; //Set hash
 if (empty($username) || empty($userpwd)) {//user name  or pssword is empty.
-    $response[TAG_SUCCESS] = 0;
-    $response[TAG_MESSAGE] = "Username and Password must not be empty";
-    die(json_encode($response));
+    $str = $box->MessageBox(0, "Username and Password must not be empty");
+    die($str);
 } else {//OK!User name and password is not empty. 
-    require_once __DIR__ . '/askjson_connect.php';
     $db = new DB_Connect(); //Connect to databse. 
     $res = $db->selectUser($username); //Search user.  
     if (count($res) == 0) {//User  is not found in MySql database.
         //Insert in database new user
         $insert = $db->insertUser($dataUser);
         if ($insert) {
-            $response[TAG_SUCCESS] = 1;
-            $response[TAG_MESSAGE] = 'User account  ' . $username . ' is Successfully Added!';
-            echo json_encode($response);
+            $str = $box->MessageBox(1, 'User account  ' . $username . ' is Successfully Added!');
+            echo $str;
         } else {
-            $response[TAG_SUCCESS] = 0;
-            $response[TAG_MESSAGE] = 'Cannot insert account ' . $username . ' in database.'
-                    . 'Check the connection to the database.';
-            die(json_encode($response));
+            $str = $box->MessageBox(0, 'Cannot insert account ' . $username . ' in database.'
+                    . 'Check the connection to the database.');
+            die($str);
         }
     } else { //A user with this name already exists in the database.Enter another user name 
-        $response[TAG_SUCCESS] = 0;
-        $response[TAG_MESSAGE] = 'A user with  name ' . $username . ' already exists in the database.'
-                . 'Please enter another user name or Press button Login';
-        die(json_encode($response));
+        $str = $box->MessageBox(0, 'A user with  name ' . $username . ' already exists in the database.'
+                . 'Please enter another user name or Press button Login');
+        die($str);
     }
 }
  //Parameter JSON_UNESCAPED_UNICODE is required to display cyrillic text
+//$box->debugOut($dataUser);
 
 
-/* * DEBUG
-  $str = var_export($dataUser, true);
-  $response[TAG_SUCCESS] = 0;
-  $response[TAG_MESSAGE] = $str;
-  die(json_encode($response));
- * 
- */
-
-
- 
 
 

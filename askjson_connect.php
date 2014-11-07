@@ -21,7 +21,7 @@ class DB_Connect {
      * constructor
      */
     function __construct() {
-        // connecting to database
+// connecting to database
         $this->con = $this->connect();
     }
 
@@ -29,7 +29,7 @@ class DB_Connect {
      * Function to connect with database
      */
     private function connect() {
-        // import database connection variables
+// import database connection variables
         require_once __DIR__ . '/askjson_config.php';
         $options = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
         try {
@@ -39,7 +39,7 @@ class DB_Connect {
         } catch (PDOException $e) {
             echo 'ERROR: ' . $e->getMessage();
         }
-        //All is OK!   
+//All is OK!   
         return $myCon;
     }
 
@@ -51,15 +51,40 @@ class DB_Connect {
     }
 
     /**
+     * Function to get hash password  from  MySql database
+     */
+    public function getHash($username, $password) {
+        try {
+            $sql_query = "SELECT password "
+                    . "FROM user "
+                    . "WHERE name =" . TAG_NAME
+                    . ' LIMIT 1'
+            ;
+            $st = $this->con->prepare($sql_query);
+            $st->bindParam(TAG_NAME, $username);
+            $st->execute();
+            $user = $st->fetch(PDO::FETCH_OBJ);
+// Hashing the password with its hash as the salt returns the same hash
+            if (crypt($password, $user->password) == $user->password) {
+// Ok!
+                return true;
+            }
+            return false;
+        } catch (PDOException $e) {
+            echo 'ERROR: ' . $e->getMessage();
+        }
+    }
+
+    /**
      * Function to get user password  from  MySql database
      */
     public function selectUser($username) {
         try {
-            $stmt = $this->con->prepare("SELECT * FROM user where name='$username'");
-            $stmt->execute();
+            $st = $this->con->prepare("SELECT * FROM user where name='$username'");
+            $st->execute();
             $result = [];
-            if ($stmt) {
-                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            if ($st) {
+                while ($row = $st->fetch(PDO::FETCH_ASSOC)) {
                     $result[] = $row;
                 }
             }
@@ -79,9 +104,9 @@ class DB_Connect {
                     . ":" . TAG_NAME . ","
                     . ":" . TAG_PWD . ","
                     . "'2')";
-            $stmt = $this->con->prepare($sql_query);
-            $stmt->execute($dataUser);
-            if ($stmt) {
+            $st = $this->con->prepare($sql_query);
+            $st->execute($dataUser);
+            if ($st) {
                 return true;
             }
             return false;
@@ -103,9 +128,8 @@ class DB_Connect {
                     . ":" . TAG_USER
                     . ")"
             ;
-            $stmt = $this->con->prepare($sql_query);
-            $stmt->execute($dataPerson);
-            if ($stmt) {
+            $st->execute($dataPerson);
+            if ($st) {
                 return true;
             }
             return false;
@@ -125,11 +149,11 @@ class DB_Connect {
                     . "address=:" . TAG_ADDRESS . " AND "
                     . "user=:" . TAG_USER
             ;
-            $stmt = $this->con->prepare($sql_query);
-            $stmt->execute($dataPerson);
+            $st = $this->con->prepare($sql_query);
+            $st->execute($dataPerson);
             $result = [];
-            if ($stmt) {
-                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            if ($st) {
+                while ($row = $st->fetch(PDO::FETCH_ASSOC)) {
                     $result[] = $row;
                 }
             }
@@ -153,9 +177,9 @@ class DB_Connect {
                     . ":" . TAG_USER .
                     ")"
             ;
-            $stmt = $this->con->prepare($sql_query);
-            $stmt->execute($dataAddress);
-            if ($stmt) {
+            $st = $this->con->prepare($sql_query);
+            $st->execute($dataAddress);
+            if ($st) {
                 return true;
             }
             return false;
@@ -177,11 +201,11 @@ class DB_Connect {
                     . "user=:" . TAG_USER
 
             ;
-            $stmt = $this->con->prepare($sql_query);
-            $stmt->execute($dataAddress);
+            $st = $this->con->prepare($sql_query);
+            $st->execute($dataAddress);
             $result = [];
-            if ($stmt) {
-                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            if ($st) {
+                while ($row = $st->fetch(PDO::FETCH_ASSOC)) {
                     $result[] = $row;
                 }
             }
@@ -190,5 +214,22 @@ class DB_Connect {
             echo 'ERROR: ' . $e->getMessage();
         }
     }
-
 }
+/**
+ * Class to work with MySql database
+ */
+class Security {
+   /**
+     * Function to hash password 
+     */
+    public function hashPassword($password) {
+        $cst = 10;
+        $slt = strtr(base64_encode(mcrypt_create_iv(16, MCRYPT_DEV_URANDOM)), '+', '.');
+        $slt = sprintf("$2a$%02d$", $cst) . $slt;
+        $hash = crypt($password, $slt);
+        return $hash;
+    }
+    
+}
+
+
