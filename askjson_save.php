@@ -20,6 +20,7 @@ $personHead = $jsonArr[TAG_HEAD];
 
 $personAddress = $personData[TAG_ADDRESS]; //Get person ADDRESS tag.
 $username = $personHead[TAG_NAME]; //Get user name who connected to database.
+$count=$personHead[TAG_CNT];
 
 $res = $db->selectUser($username); //Get user ID.  
 $user_id = $res[0][TAG_ID];
@@ -67,13 +68,12 @@ if (empty($personData[TAG_PSNNAME]) ||
 //$box->debugOut($queryPerson);
     $res = $db->insertPerson($queryPerson); //insert new  person data record.  
     if ($res) {
-        $res = $db->getPersonData($user_id);
-        if (count($res) % 2 == 0) {
-            $str = $box->MessageBox(1, 'Person data writen successfuly!');
+        if ($count==1) {
+            $str = $box->MessageBox(0, 'Person data writen successfuly!');
             echo $str;
         } else {
             $str = $box->MessageBox(1, 'Please enter next data!');
-            die($str);
+            echo $str;
         }
     } else {
         $str = $box->MessageBox(0, 'Cannot insert person data '

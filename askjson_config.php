@@ -28,6 +28,7 @@ define('TAG_BTN', 'button');
 define('VAL_BTNSAVE', 'save');
 define('VAL_BTNLOG', 'login');
 define('VAL_BTNREG', 'register');
+define('TAG_CNT', 'count');
 
 /**
  * Data to output  a message and a result of I/O operation.
