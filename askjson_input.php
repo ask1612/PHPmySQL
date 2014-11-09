@@ -13,13 +13,18 @@ require_once __DIR__ . '/askjson_config.php';
 $jsonString = filter_input(INPUT_POST, TAG_JSON);
 $jsonArr = json_decode($jsonString, true);
 
-//
-$button = trim($jsonArr[TAG_HEAD][TAG_BTN]); //clicked button 
-if ($button == VAL_BTNLOG) {
+$button = trim($jsonArr[TAG_HEAD][TAG_BTN]); //Get clicked button
+
+switch ($button){
+case  VAL_BTNLOG:
     require_once __DIR__ . '/askjson_login.php';
-} elseif ($button == VAL_BTNREG) {
+    break;
+case  VAL_BTNREG:
     require_once __DIR__ . '/askjson_register.php';
-} elseif ($button == VAL_BTNSAVE) {
+    break;
+case  VAL_BTNSAVE:
     require_once __DIR__ . '/askjson_save.php';
+    break;
 }
+
     

@@ -66,10 +66,9 @@ class DB_Connect {
             $user = $st->fetch(PDO::FETCH_OBJ);
 // Hashing the password with its hash as the salt returns the same hash
             if (crypt($password, $user->hash) == $user->hash) {
-// Ok!              
-                return '  Ok!';
+                return  true;//'  Ok!';
             }
-            return '  Wrong!';
+            return false;//'  Wrong!';
         } catch (PDOException $e) {
             echo 'ERROR: ' . $e->getMessage();
         }
@@ -128,6 +127,7 @@ class DB_Connect {
                     . ":" . TAG_USER
                     . ")"
             ;
+            $st = $this->con->prepare($sql_query);
             $st->execute($dataPerson);
             if ($st) {
                 return true;
@@ -151,6 +151,28 @@ class DB_Connect {
             ;
             $st = $this->con->prepare($sql_query);
             $st->execute($dataPerson);
+            $result = [];
+            if ($st) {
+                while ($row = $st->fetch(PDO::FETCH_ASSOC)) {
+                    $result[] = $row;
+                }
+            }
+            return $result;
+        } catch (PDOException $e) {
+            echo 'ERROR: ' . $e->getMessage();
+        }
+    }
+    /**
+     * Function to select from  person all user records 
+     */
+    public function getPersonData($user_id) {
+        try {
+            $sql_query = "SELECT * FROM person WHERE "
+                    . "user=:" . TAG_USER
+            ;
+            $st = $this->con->prepare($sql_query);
+            $st->bindParam(':'.TAG_USER, $user_id);
+            $st->execute();
             $result = [];
             if ($st) {
                 while ($row = $st->fetch(PDO::FETCH_ASSOC)) {
@@ -218,7 +240,7 @@ class DB_Connect {
 }
 
 /**
- * Class to work with MySql database
+ * Class to secutity work
  */
 class Security {
 

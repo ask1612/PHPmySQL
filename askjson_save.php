@@ -8,21 +8,24 @@
  * https://github.com/ask1612/PHPmySQL.git 
  * Here will be  saved  a new person data  record
  */
+require_once __DIR__ . '/askjson_connect.php';
+require_once __DIR__ . '/askjson_message.php';
+$db = new DB_Connect(); //Connect to databse. 
+$box = new Message();
+
 //Get person  DATA and HEAD tags.
 $personData = $jsonArr[TAG_DATA];
 $personHead = $jsonArr[TAG_HEAD];
 
-//Get ADDRESS tag.
-$personAddress = $personData[TAG_ADDRESS];
-$username = $personHead[TAG_NAME];
 
-require_once __DIR__ . '/askjson_connect.php';
-$db = new DB_Connect(); //Connect to databse. 
+$personAddress = $personData[TAG_ADDRESS]; //Get person ADDRESS tag.
+$username = $personHead[TAG_NAME]; //Get user name who connected to database.
+
 $res = $db->selectUser($username); //Get user ID.  
 $user_id = $res[0][TAG_ID];
 $address_id = 0;
 
-$queryAddress = [];
+$queryAddress = []; //Array to pass parameters to person database 
 $queryAddress[TAG_CITY] = $personAddress[TAG_CITY];
 $queryAddress[TAG_STREET] = $personAddress[TAG_STREET];
 $queryAddress[TAG_BUILD] = $personAddress[TAG_BUILD];
@@ -36,22 +39,20 @@ if (empty($personData[TAG_PSNNAME]) ||
         $personAddress[TAG_BUILD] == 0 ||
         $personAddress[TAG_FLAT] == 0
 ) {//Field empty.
-    $response[TAG_SUCCESS] = 0;
-    $response[TAG_MESSAGE] = "Field  must not be empty";
-    die(json_encode($response));
+    $str = $box->MessageBox(0, "Field  must not be empty");
+    die($str);
 } else {
     $res = $db->selectAddress($queryAddress); //Search address.  
     if (count($res) == 0) {
-        //Address   not found. Add new address.
+        //Address   not found. Add new address to database.
         $res = $db->insertAddress($queryAddress);
         if ($res) {
-            $res = $db->selectAddress($queryAddress); //Select  address to get id
+            $res = $db->selectAddress($queryAddress); //Get address  id
             $address_id = $res[0][TAG_ID];
         } else {
-            $response[TAG_SUCCESS] = 0;
-            $response[TAG_MESSAGE] = 'Cannot insert addreess '
-                    . 'Check the connection to the database.';
-            die(json_encode($response));
+            $str = $box->MessageBox(0, 'Cannot insert addreess.'
+                    . 'Check the connection to the database.');
+            die($str);
         }
     } else {
         $address_id = $res[0][TAG_ID];
@@ -63,28 +64,23 @@ if (empty($personData[TAG_PSNNAME]) ||
     $queryPerson[TAG_SURNAME] = $personData[TAG_SURNAME];
     $queryPerson[TAG_ADDRESS] = $address_id;
     $queryPerson[TAG_USER] = $user_id;
-
-    $res = $db->insertPerson($queryPerson); //insert new  address.  
+//$box->debugOut($queryPerson);
+    $res = $db->insertPerson($queryPerson); //insert new  person data record.  
     if ($res) {
-        $response[TAG_SUCCESS] = 1;
-        $response[TAG_MESSAGE] = 'Person data writen successfuly!';
-
-        echo json_encode($response);
+        $res = $db->getPersonData($user_id);
+        if (count($res) % 2 == 0) {
+            $str = $box->MessageBox(1, 'Person data writen successfuly!');
+            echo $str;
+        } else {
+            $str = $box->MessageBox(1, 'Please enter next data!');
+            die($str);
+        }
     } else {
-        $response[TAG_SUCCESS] = 0;
-        $response[TAG_MESSAGE] = 'Cannot insert person data '
-                . 'Check the connection to the database.';
-        die(json_encode($response));
+        $str = $box->MessageBox(0, 'Cannot insert person data '
+                . 'Check the connection to the database.');
+        die($str);
     }
 }
-
-/**DEBUG
-$str = var_export($res, true);
-$response[TAG_SUCCESS] = 1;
-$response[TAG_MESSAGE] = $str;
-die(json_encode($response));
- * 
- */
 
 
 

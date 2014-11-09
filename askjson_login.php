@@ -11,6 +11,7 @@
  */
 require_once __DIR__ . '/askjson_connect.php';
 require_once __DIR__ . '/askjson_message.php';
+$db = new DB_Connect(); //Connect to databse.
 $box = new Message();
 /* Check out  user name and password. */
 //Get user name and password 
@@ -20,7 +21,6 @@ if (empty($username) || empty($userpwd)) {//User name  or pssword is empty
     $str = $box->MessageBox(0, "Username and Password must not be empty");
     die($str);
 } else {//OK!User name and password is not empty. 
-    $db = new DB_Connect(); //Connect to databse.
     $res = $db->selectUser($username); //Search user.
     if (count($res) == 0) {//User  is not found in MySql database.
         $str = $box->MessageBox(0, " User account  " . $username . " is not found!");
@@ -28,7 +28,7 @@ if (empty($username) || empty($userpwd)) {//User name  or pssword is empty
     } else { //A user with this name  exists in the database.
         //Check out the password
         $res = $db->getHash($username, $userpwd); // get hash
-        $box->debugOut($res);
+//        $box->debugOut($res);
         if ($res) {
         $str = $box->MessageBox(1, "You have successful login");
         echo $str;
