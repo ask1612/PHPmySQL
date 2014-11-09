@@ -42,6 +42,7 @@ define('TAG_MESSAGE', 'message');
  */
 define('TAG_NAME', 'name');
 define('TAG_PWD', 'password');
+define('TAG_HASH', 'hash');
 
 /**
  * Data to input PERSON information

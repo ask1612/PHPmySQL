@@ -12,15 +12,15 @@ require_once __DIR__ . '/askjson_connect.php';
 require_once __DIR__ . '/askjson_message.php';
 $box = new Message();
 //Get user name and password
-$dataUser = $jsonArr[TAG_DATA]; // Get data tag . It  will be used as
-//query sql  parameter
+$dataUser = $jsonArr[TAG_DATA]; // Get data tag . It  will be used as query sql  parameter
 
-$username = trim($dataUser[TAG_NAME]); //user name
-$userpwd = (trim($dataUser[TAG_PWD])); //password
+$username = trim($dataUser[TAG_NAME]); //User name
+$userpwd = (trim($dataUser[TAG_PWD])); //Password
 $security = new Security();
 $hash=$security->hashPassword($userpwd);
-$dataUser[TAG_PWD] = $hash; //Set hash
-if (empty($username) || empty($userpwd)) {//user name  or pssword is empty.
+
+$dataUser[TAG_PWD] = $hash; //Change  password to a hash.
+if (empty($username) || empty($userpwd)) {//User name  or pssword is empty.
     $str = $box->MessageBox(0, "Username and Password must not be empty");
     die($str);
 } else {//OK!User name and password is not empty. 
@@ -28,7 +28,7 @@ if (empty($username) || empty($userpwd)) {//user name  or pssword is empty.
     $res = $db->selectUser($username); //Search user.  
     if (count($res) == 0) {//User  is not found in MySql database.
         //Insert in database new user
-        $insert = $db->insertUser($dataUser);
+        $insert = $db->insertUser($dataUser);//Pass array as parameter
         if ($insert) {
             $str = $box->MessageBox(1, 'User account  ' . $username . ' is Successfully Added!');
             echo $str;

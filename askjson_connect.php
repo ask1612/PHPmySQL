@@ -55,21 +55,21 @@ class DB_Connect {
      */
     public function getHash($username, $password) {
         try {
-            $sql_query = "SELECT password "
+            $sql_query = "SELECT hash "
                     . "FROM user "
-                    . "WHERE name =" . TAG_NAME
+                    . "WHERE name =:".TAG_NAME
                     . ' LIMIT 1'
             ;
             $st = $this->con->prepare($sql_query);
-            $st->bindParam(TAG_NAME, $username);
+            $st->bindParam(':'.TAG_NAME, $username);
             $st->execute();
             $user = $st->fetch(PDO::FETCH_OBJ);
 // Hashing the password with its hash as the salt returns the same hash
-            if (crypt($password, $user->password) == $user->password) {
-// Ok!
-                return true;
+            if (crypt($password, $user->hash) == $user->hash) {
+// Ok!              
+                return '  Ok!';
             }
-            return false;
+            return '  Wrong!';
         } catch (PDOException $e) {
             echo 'ERROR: ' . $e->getMessage();
         }
@@ -99,7 +99,7 @@ class DB_Connect {
      */
     public function insertUser($dataUser) {
         try {
-            $sql_query = "INSERT INTO user (name, password, role)"
+            $sql_query = "INSERT INTO user (name, hash, role)"
                     . " VALUES("
                     . ":" . TAG_NAME . ","
                     . ":" . TAG_PWD . ","
@@ -214,22 +214,23 @@ class DB_Connect {
             echo 'ERROR: ' . $e->getMessage();
         }
     }
+
 }
+
 /**
  * Class to work with MySql database
  */
 class Security {
-   /**
+
+    /**
      * Function to hash password 
      */
     public function hashPassword($password) {
-        $cst = 10;
-        $slt = strtr(base64_encode(mcrypt_create_iv(16, MCRYPT_DEV_URANDOM)), '+', '.');
-        $slt = sprintf("$2a$%02d$", $cst) . $slt;
-        $hash = crypt($password, $slt);
+        $cost = 7;
+        $salt = strtr(base64_encode(mcrypt_create_iv(16, MCRYPT_DEV_URANDOM)), '+', '.');
+        $salt = sprintf("$2y$%02d$", $cost) . $salt;
+        $hash = crypt($password, $salt);
         return $hash;
     }
-    
+
 }
-
-

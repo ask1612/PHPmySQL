@@ -28,6 +28,7 @@ if (empty($username) || empty($userpwd)) {//User name  or pssword is empty
     } else { //A user with this name  exists in the database.
         //Check out the password
         $res = $db->getHash($username, $userpwd); // get hash
+        $box->debugOut($res);
         if ($res) {
         $str = $box->MessageBox(1, "You have successful login");
         echo $str;
