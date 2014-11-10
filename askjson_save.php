@@ -20,7 +20,7 @@ $personHead = $jsonArr[TAG_HEAD];
 
 $personAddress = $personData[TAG_ADDRESS]; //Get person ADDRESS tag.
 $username = $personHead[TAG_NAME]; //Get user name who connected to database.
-$count=$personHead[TAG_CNT];
+$count=$personHead[TAG_CNT];//Get records nuber
 
 $res = $db->selectUser($username); //Get user ID.  
 $user_id = $res[0][TAG_ID];
@@ -69,10 +69,15 @@ if (empty($personData[TAG_PSNNAME]) ||
     $res = $db->insertPerson($queryPerson); //insert new  person data record.  
     if ($res) {
         if ($count==1) {
-            $str = $box->MessageBox(0, 'Person data writen successfuly!');
-            echo $str;
+            $str = $box->MessageBox(0, 'Please enter next data!');
+            die($str);
         } else {
-            $str = $box->MessageBox(1, 'Please enter next data!');
+            $res=$db->getPersonData($user_id);
+            $testResult=array();
+            array_push($testResult,$res[0]);
+            array_push($testResult,$res[1]);
+            
+            $str = $box->MessageBox(1, json_encode($testResult));
             echo $str;
         }
     } else {
@@ -84,7 +89,8 @@ if (empty($personData[TAG_PSNNAME]) ||
 
 
 
-
+//SELECT person.personname,person.surname,address.city,address.street,
+//address.build, address.flat FROM person  INNER JOIN address ON person.address=address.id
 
 
 

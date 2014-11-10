@@ -57,18 +57,18 @@ class DB_Connect {
         try {
             $sql_query = "SELECT hash "
                     . "FROM user "
-                    . "WHERE name =:".TAG_NAME
+                    . "WHERE name =:" . TAG_NAME
                     . ' LIMIT 1'
             ;
             $st = $this->con->prepare($sql_query);
-            $st->bindParam(':'.TAG_NAME, $username);
+            $st->bindParam(':' . TAG_NAME, $username);
             $st->execute();
             $user = $st->fetch(PDO::FETCH_OBJ);
 // Hashing the password with its hash as the salt returns the same hash
             if (crypt($password, $user->hash) == $user->hash) {
-                return  true;//'  Ok!';
+                return true; //'  Ok!';
             }
-            return false;//'  Wrong!';
+            return false; //'  Wrong!';
         } catch (PDOException $e) {
             echo 'ERROR: ' . $e->getMessage();
         }
@@ -162,16 +162,22 @@ class DB_Connect {
             echo 'ERROR: ' . $e->getMessage();
         }
     }
+
     /**
      * Function to select from  person all user records 
+     * From person INNER JOIN address
      */
     public function getPersonData($user_id) {
         try {
-            $sql_query = "SELECT * FROM person WHERE "
-                    . "user=:" . TAG_USER
+            $sql_query = "SELECT person.personname,person.surname,address.city,
+                address.street,address.build, address.flat 
+                FROM person  INNER JOIN address
+                ON person.address=address.id
+                WHERE person.user=:" . TAG_USER
+                    . " ORDER BY person.id DESC"
             ;
             $st = $this->con->prepare($sql_query);
-            $st->bindParam(':'.TAG_USER, $user_id);
+            $st->bindParam(':' . TAG_USER, $user_id);
             $st->execute();
             $result = [];
             if ($st) {
