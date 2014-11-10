@@ -20,7 +20,8 @@ $personHead = $jsonArr[TAG_HEAD];
 
 $personAddress = $personData[TAG_ADDRESS]; //Get person ADDRESS tag.
 $username = $personHead[TAG_NAME]; //Get user name who connected to database.
-$count=$personHead[TAG_CNT];//Get records nuber
+$count = $personHead[TAG_CNT]; //Get count of records
+$rec = $personHead[TAG_REC]; //Get number of records
 
 $res = $db->selectUser($username); //Get user ID.  
 $user_id = $res[0][TAG_ID];
@@ -40,7 +41,7 @@ if (empty($personData[TAG_PSNNAME]) ||
         $personAddress[TAG_BUILD] == 0 ||
         $personAddress[TAG_FLAT] == 0
 ) {//Field empty.
-    $str = $box->MessageBox(0, "Field  must not be empty");
+    $str = $box->echoBox(0, "Field  must not be empty", "");
     die($str);
 } else {
     $res = $db->selectAddress($queryAddress); //Search address.  
@@ -51,8 +52,8 @@ if (empty($personData[TAG_PSNNAME]) ||
             $res = $db->selectAddress($queryAddress); //Get address  id
             $address_id = $res[0][TAG_ID];
         } else {
-            $str = $box->MessageBox(0, 'Cannot insert addreess.'
-                    . 'Check the connection to the database.');
+            $str = $box->echoBox(0, "Cannot insert addreess."
+                    . "Check the connection to the database.", "");
             die($str);
         }
     } else {
@@ -68,21 +69,24 @@ if (empty($personData[TAG_PSNNAME]) ||
 //$box->debugOut($queryPerson);
     $res = $db->insertPerson($queryPerson); //insert new  person data record.  
     if ($res) {
-        if ($count==1) {
-            $str = $box->MessageBox(0, 'Please enter next data!');
+        $count--;
+        if ($count != 0) {
+
+            $str = $box->echoBox(1, 'Please, enter next data!', "");
             die($str);
         } else {
-            $res=$db->getPersonData($user_id);
-            $testResult=array();
-            array_push($testResult,$res[0]);
-            array_push($testResult,$res[1]);
-            
-            $str = $box->MessageBox(1, json_encode($testResult));
+            $res = $db->getPersonData($user_id);
+            $testResult = array();
+            for ($index = 0; $index < $rec; $index++) {
+                array_push($testResult, $res[$index]);
+            }
+
+            $str = $box->echoBox(1, "All of records entered", json_encode($testResult));
             echo $str;
         }
     } else {
-        $str = $box->MessageBox(0, 'Cannot insert person data '
-                . 'Check the connection to the database.');
+        $str = $box->echoBox(0, "Cannot insert person data "
+                . "Check the connection to the database.", "");
         die($str);
     }
 }

@@ -18,22 +18,22 @@ $box = new Message();
 $username = trim($jsonArr[TAG_DATA][TAG_NAME]); //User name
 $userpwd = trim($jsonArr[TAG_DATA][TAG_PWD]); //Password
 if (empty($username) || empty($userpwd)) {//User name  or pssword is empty
-    $str = $box->MessageBox(0, "Username and Password must not be empty");
+    $str = $box->echoBox(0, "Username and Password must not be empty","");
     die($str);
 } else {//OK!User name and password is not empty. 
     $res = $db->selectUser($username); //Search user.
     if (count($res) == 0) {//User  is not found in MySql database.
-        $str = $box->MessageBox(0, " User account  " . $username . " is not found!");
+        $str = $box->echoBox(0, " User account  " . $username . " is not found!","");
         die($str);
     } else { //A user with this name  exists in the database.
         //Check out the password
         $res = $db->getHash($username, $userpwd); // get hash
 //        $box->debugOut($res);
         if ($res) {
-        $str = $box->MessageBox(1, "You have successful login");
+        $str = $box->echoBox(1, "You have successful login","");
         echo $str;
         } else {
-        $str = $box->MessageBox(0, "Pasword you have entered is wrong ");
+        $str = $box->echoBox(0, "Pasword you have entered is wrong ","");
         die($str);
         }
     }

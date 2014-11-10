@@ -14,9 +14,10 @@ class Message {
     /**
      * Function to create JSON message for client application
      */
-    public function MessageBox($success, $message) {
+    public function echoBox($success, $message,$data) {
         $response[TAG_SUCCESS] = $success;
         $response[TAG_MESSAGE] = $message;
+        $response[TAG_DATA] = $data;
         return json_encode($response);
     }
 
