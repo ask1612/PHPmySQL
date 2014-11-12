@@ -58,7 +58,7 @@ define('TAG_FLAT', 'flat');
 
 
 /**
- *Database tables 
+ * Database tables 
  */
 define('TAG_USER', 'user');
 define('TAG_PSN', 'person');
