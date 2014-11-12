@@ -51,7 +51,7 @@ class DB_Connect {
     }
 
     /**
-     * Function to get hash password  from  MySql database
+     * Function to get hash password  from  MySQL database
      */
     public function getHash($username, $password) {
         try {
@@ -75,7 +75,7 @@ class DB_Connect {
     }
 
     /**
-     * Function to get user password  from  MySql database
+     * Function to get user password  from  MySQL database
      */
     public function selectUser($username) {
         try {
@@ -94,7 +94,7 @@ class DB_Connect {
     }
 
     /**
-     * Function to insert new user account into MySql database
+     * Function to insert new user account into MySQL database
      */
     public function insertUser($dataUser) {
         try {
@@ -115,7 +115,7 @@ class DB_Connect {
     }
 
     /**
-     * Function to insert new person data  into MySql database
+     * Function to insert new person data  into MySQL database
      */
     public function insertPerson($dataPerson) {
         try {
@@ -139,7 +139,7 @@ class DB_Connect {
     }
 
     /**
-     * Function to select from  person 
+     * Function to select from the person table
      */
     public function selectPerson($dataPerson) {
         try {
@@ -164,8 +164,8 @@ class DB_Connect {
     }
 
     /**
-     * Function to select from  person all user records 
-     * From person INNER JOIN address
+     * Function to get data about person
+     *  
      */
     public function getPersonData($user_id) {
         try {
@@ -192,7 +192,7 @@ class DB_Connect {
     }
 
     /**
-     * Function to insert new address data  into MySql database
+     * Function to insert new address data  into MySQL database
      */
     public function insertAddress($dataAddress) {
         try {

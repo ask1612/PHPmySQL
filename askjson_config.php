@@ -10,7 +10,7 @@
  * 
  */
 /**
- * Data to login to  MySql database
+ * Data to login to  MySQL database
  */
 define('DB_USER', "test");
 define('DB_PASSWORD', "tst");
@@ -18,7 +18,7 @@ define('DB_DATABASE', "mytest");
 define('DB_SERVER', "localhost");
 
 /**
- * common JSON tags
+ * Common JSON tags
  */
 define('TAG_JSON', 'askJSON');
 define('TAG_DATA', 'data');

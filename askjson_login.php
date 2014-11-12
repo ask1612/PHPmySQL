@@ -23,17 +23,17 @@ if (empty($username) || empty($userpwd)) {//User name  or pssword is empty
 } else {//OK!User name and password is not empty. 
     $res = $db->selectUser($username); //Search user.
     if (count($res) == 0) {//User  is not found in MySql database.
-        $str = $box->echoBox(0, " User account  " . $username . " is not found!","");
+        $str = $box->echoBox(0, " User account  " . $username . "  not found!","");
         die($str);
     } else { //A user with this name  exists in the database.
         //Check out the password
         $res = $db->getHash($username, $userpwd); // get hash
 //        $box->debugOut($res);
         if ($res) {
-        $str = $box->echoBox(1, "You have successful login","");
+        $str = $box->echoBox(1, "You have successfully logged into the system","");
         echo $str;
         } else {
-        $str = $box->echoBox(0, "Pasword you have entered is wrong ","");
+        $str = $box->echoBox(0, "You have entered an incorrect password.","");
         die($str);
         }
     }
