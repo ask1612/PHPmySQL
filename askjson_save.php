@@ -81,7 +81,7 @@ if (empty($personData[TAG_PSNNAME]) ||
                 array_push($testResult, $res[$index]);
             }
 
-            $str = $box->echoBox(1, "All of records entered", json_encode($testResult));
+            $str = $box->echoBox(1, "All of records are entered", json_encode($testResult));
             echo $str;
         }
     } else {
