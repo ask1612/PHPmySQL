@@ -64,7 +64,7 @@ class DB_Connect {
             $st->bindParam(':' . TAG_NAME, $username);
             $st->execute();
             $user = $st->fetch(PDO::FETCH_OBJ);
-// Hashing the password with its hash as the salt returns the same hash
+// The entered password ic correct,if hash of the password with its hash returns the same hash 
             if (crypt($password, $user->hash) == $user->hash) {
                 return true; //'  Ok!';
             }
