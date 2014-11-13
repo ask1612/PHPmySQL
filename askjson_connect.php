@@ -11,7 +11,7 @@
  */
 
 /**
- * Class to work with MySql database
+ * Class to work with MySQL database
  */
 class DB_Connect {
 
