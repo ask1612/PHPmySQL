@@ -2,8 +2,7 @@
 
 /**
  * 
- * Niemand ist perfekt.
- * I do not sleep tonight... I may not ever...
+ * Wer sucht, der findet. Bald kommt der Winter mit Schnee und Frost.
  * askjson_config.php
  * @author ASK
  * https://github.com/ask1612/PHPmySQL.git 

@@ -1,8 +1,7 @@
 <?php
 
 /**
- * Niemand ist perfekt.
- * I do not sleep tonight... I may not ever...
+ * Wer sucht, der findet. Bald kommt der Winter mit Schnee und Frost.
  * askjson_message.php
  * @author ASK
  * https://github.com/ask1612/PHPmySQL.git 
@@ -14,7 +13,7 @@ class Message {
     /**
      * Function to create JSON message for client application
      */
-    public function echoBox($success, $message,$data) {
+    public function echoBox($success, $message, $data) {
         $response[TAG_SUCCESS] = $success;
         $response[TAG_MESSAGE] = $message;
         $response[TAG_DATA] = $data;

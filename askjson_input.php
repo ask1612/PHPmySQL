@@ -1,8 +1,7 @@
 <?php
 
 /**
- * Niemand ist perfekt.
- * I do not sleep tonight... I may not ever...
+ * Wer sucht, der findet. Bald kommt der Winter mit Schnee und Frost.
  * askjson_input.php
  * @author ASK
  * https://github.com/ask1612/PHPmySQL.git 
@@ -15,16 +14,16 @@ $jsonArr = json_decode($jsonString, true);
 
 $button = trim($jsonArr[TAG_HEAD][TAG_BTN]); //get clicked button from the header
 
-switch ($button){
-case  VAL_BTNLOG:
-    require_once __DIR__ . '/askjson_login.php';
-    break;
-case  VAL_BTNREG:
-    require_once __DIR__ . '/askjson_register.php';
-    break;
-case  VAL_BTNSAVE:
-    require_once __DIR__ . '/askjson_save.php';
-    break;
+switch ($button) {
+    case VAL_BTNLOG:
+        require_once __DIR__ . '/askjson_login.php';
+        break;
+    case VAL_BTNREG:
+        require_once __DIR__ . '/askjson_register.php';
+        break;
+    case VAL_BTNSAVE:
+        require_once __DIR__ . '/askjson_save.php';
+        break;
 }
 
     
