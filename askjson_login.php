@@ -17,7 +17,7 @@ $box = new Message();
 $username = trim($jsonArr[TAG_DATA][TAG_NAME]); //User name
 $userpwd = trim($jsonArr[TAG_DATA][TAG_PWD]); //Password
 if (empty($username) || empty($userpwd)) {//User name  or pssword is empty
-    $str = $box->echoBox(0, "Username and Password must not be empty", "");
+    $str = $box->echoBox(0, "Username and Password could  not be empty", "");
     die($str);
 } else {//OK!User name and password is not empty. 
     $res = $db->selectUser($username); //Search user.
