@@ -1,7 +1,6 @@
 <?php
 
 /**
- * Wer sucht, der findet. Bald kommt der Winter mit Schnee und Frost.
  * askjson_register.php
  * @author ASK
  * https://github.com/ask1612/PHPmySQL.git 
